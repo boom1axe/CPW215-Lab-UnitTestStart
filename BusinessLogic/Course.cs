@@ -6,11 +6,9 @@ namespace BusinessLogic
 {
     public class Course
     {
-        private readonly int maxCredits = 30;
         public Course(string courseName)
         {
             CourseName = courseName;
-            InstructorName = "Staff";
         }
 
         /// <summary>
@@ -25,8 +23,8 @@ namespace BusinessLogic
 
         /// <summary>
         /// Number of credits for the course
-        /// </summary>     
-		public byte NumberOfCredits { get; set; }
+        /// </summary>
+        public byte NumberOfCredits { get; set; }
+
     }
-        
 }
