@@ -1,10 +1,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Linq;
 
 namespace BusinessLogicTests
 {
     [TestClass]
     public class ValidatorTest
     {
+        private const int ssnMinLength = 9;
+
         [TestMethod]
         [DataRow("555-55-5555")]
         [DataRow("555555555")]
@@ -12,8 +16,12 @@ namespace BusinessLogicTests
         [DataRow("428-52-1234")]
         public void IsValidSsn_ValidInput_ReturnTrue(string input)
         {
-            //TODO: Test the IsValidSSN method in the Validator class
-            Assert.Fail();
+            if (input.Contains("-"))
+            {
+                input.Replace("-", "");
+            }
+            bool isnum = input.All(char.IsDigit);
+            Assert.IsTrue(input.Length == ssnMinLength && isnum == true);
         }
 
         [TestMethod]
@@ -23,8 +31,12 @@ namespace BusinessLogicTests
         [DataRow("TenLetters")]
         public void IsValidSsn_InvalidInput_ReturnsFalse(string input)
         {
-            //TODO: Test the IsValidSSN method in the Validator class
-            Assert.Fail();
+            if (input.Contains("-"))
+            {
+                input.Replace("-", "");
+            }
+            bool isnum = input.All(char.IsDigit);
+            Assert.IsFalse(input.Length == ssnMinLength || isnum == false);
         }
 
         [TestMethod]
@@ -34,8 +46,8 @@ namespace BusinessLogicTests
         [DataRow(2000, 0, 50000)]
         public void IsWithinRange_NumInInclusiveRange_ReturnTrue(int test, int min, int max)
         {
-            //TODO: Test the IsWithinRange method in the Validator class
-            Assert.Fail();
+            //If test is in Inclusive range
+            Assert.IsTrue(test <= max && test >= min);
         }
 
         [TestMethod]
@@ -44,8 +56,8 @@ namespace BusinessLogicTests
         [DataRow(10000, 0, 5000)]
         public void IsWithinRange_NumOutsideInclusiveRange_ReturnsFalse(int test, int min, int max)
         {
-            //TODO: Test the IsWithinRange method in the Validator class
-            Assert.Fail();
+            //If test is out of Inclsive range
+            Assert.IsFalse(test > min && test < max);
         }
     }
 }
