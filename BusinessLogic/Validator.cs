@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 
 namespace BusinessLogic
 {
     public static class Validator
     {
+        private const int ssnMinLength = 9;
+
         /// <summary>
         /// Determines if string is a valid Social Security number
         /// </summary>
@@ -11,7 +14,12 @@ namespace BusinessLogic
         /// <returns></returns>
         public static bool IsSsn(string ssn)
         {
-            throw new NotImplementedException();
+            if (ssn.Contains("-"))
+            {
+                ssn.Replace("-", "");
+            }
+            bool isnum = ssn.All(char.IsDigit);
+            return ssn.Length == ssnMinLength && isnum == true;
         }
 
         /// <summary>
@@ -23,7 +31,7 @@ namespace BusinessLogic
         /// <returns></returns>
         public static bool IsWithinRange(int numToTest, int minValue, int maxValue)
         {
-            throw new NotImplementedException();
+            return numToTest <= maxValue && numToTest >= maxValue;
         }
     }
 }
